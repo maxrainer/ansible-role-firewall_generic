@@ -1,7 +1,8 @@
 ---
 
-fw_survey: true
-fw_methode_template: true
+fw_survey: false
+# Jinja template methode
+fw_methode_template: false
 
 fw_conf_lines: []
 
@@ -29,6 +30,8 @@ fw_rules:
       logging_init: false
       logging_close: true
 
+# if fw_survey: true
+# this variables are valid for survey
 fw_rule_name: rule_survey
 fw_rule_src_zone: internal
 fw_rule_src_host_ipv4: '10.10.7.7'

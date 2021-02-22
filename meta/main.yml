@@ -1,0 +1,21 @@
+dependencies: []
+
+collections: 
+  - junipernetworks.junos
+
+galaxy_info:
+  role_name: firewall_generic
+  author: Markus Rainer
+  description: generic Firewall role for different platforms
+  company: Red Hat
+
+  license: MIT
+
+  min_ansible_version: 2.9
+
+  platforms: 
+    - name: GenericUNIX
+      versions:
+        - all
+
+  galaxy_tags: [srx, , junos, demo, lab, networking]

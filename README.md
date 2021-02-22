@@ -1,15 +1,14 @@
 # **Ansible Role for Firewall Demos**
-
 ## **Overview**
-Simple examples for providing F5 Workshops, Demos and Labs.
-
+Ansible role for different Firewall platforms.
+## **Plaforms supported
+* Juniper SRX
 ## **Topics covered**
-* gather facts (structured data)
-* license install and revoke
-* managing webserver pool, member, virtual server
-* generating HTML reports (pools and node states)
-* reverse engineering from F5 to SoTs
-* change members' state of a given pool
+* policy and rule configuration
+* address book configuration
+* methode: CLI commands
+* methode: Jinja templates
 ## **requirements**
-depends on collection: f5networks.f5_modules
+depends on collection: junipernetworks.junos
+
 
