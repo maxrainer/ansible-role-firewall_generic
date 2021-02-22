@@ -1,0 +1,36 @@
+---
+
+- name: set variable for rules
+  include_vars: vars/srx_acls.yml
+  when: fw_survey
+  tags: [rule]
+
+# - name: fw_rules
+#   debug:
+#     var: fw_rules
+
+- name: start loop for rules
+  include_tasks:
+    file: rule_loop.yml
+    apply:
+      tags: rule
+  loop: "{{ fw_rules }}"
+  loop_control:
+    label: "{{ _rule.name }}"
+    loop_var: _rule
+  when: fw_rules | length > 0 and not fw_methode_template 
+  tags: [rule]
+
+- include_tasks: 
+    file: fire_config.yml
+    apply:
+      tags: rule
+  when: not fw_methode_template 
+  tags: [rule]
+
+- include_tasks:
+    file: rule_template.yml
+    apply: 
+      tags: rule
+  when: fw_methode_template
+  tags: [rule]

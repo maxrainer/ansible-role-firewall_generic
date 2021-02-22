@@ -1,0 +1,9 @@
+---
+
+- name: FACTS firewall juniper SRX
+  hosts: srx
+  gather_facts: false
+  tasks:
+  
+  - include_tasks: ../tasks/srx/facts.yml
+  

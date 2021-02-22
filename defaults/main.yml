@@ -1,0 +1,42 @@
+---
+
+fw_survey: true
+fw_methode_template: true
+
+fw_conf_lines: []
+
+fw_rules:
+  - name: rule_A
+    src:
+      zone: "internal"
+      addresses:
+        - name: "inside_host_D"
+          ipv4: "10.10.2.3"
+    dest:
+      zone: "public"
+      addresses:
+        - name: "pub_host_A"
+          type: host
+          ipv4: "7.7.7.1"
+        - name: "pub_host_B"
+          type: host
+          ipv4: "7.7.7.2"
+    services:
+      - junos-dns-tcp
+      - junos-dns-udp
+    rule:
+      action: "permit"
+      logging_init: false
+      logging_close: true
+
+fw_rule_name: rule_survey
+fw_rule_src_zone: internal
+fw_rule_src_host_ipv4: '10.10.7.7'
+fw_rule_src_host_name: 'host_seven_seven'
+fw_rule_dest_zone: 'public'
+fw_rule_dest_host_ipv4: '3.3.3.3'
+fw_rule_dest_host_name: 'dest_host'
+fw_rule_services: ['junos-dns-tcp', 'junos-dns-udp']
+fw_rule_action: permit
+fw_rule_logging_init: true
+fw_rule_logging_close: false

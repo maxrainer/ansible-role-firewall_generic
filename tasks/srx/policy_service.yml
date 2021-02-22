@@ -1,0 +1,6 @@
+---
+# # set security policies from-zone {{ security_policy.from }} to-zone {{ security_policy.to }} policy {{ security_policy.name }} match application {{ application }}
+
+- name: set variable for policy services / applications
+  set_fact:
+    fw_conf_lines: "{{ fw_conf_lines + ['set security policies from-zone ' + _src_zone + ' to-zone ' + _dest_zone + ' policy ' + _rule.name + ' match application ' + _service ] }}"

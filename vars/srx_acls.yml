@@ -1,0 +1,17 @@
+fw_rules:
+  - name: "{{ fw_rule_name }}"
+    src:
+      zone: "{{ fw_rule_src_zone }}"
+      addresses:
+        - name: "{{ fw_rule_src_host_name }}"
+          ipv4: "{{ fw_rule_src_host_ipv4 }}"
+    dest:
+      zone: "{{ fw_rule_dest_zone }}"
+      addresses:
+        - name: "{{ fw_rule_dest_host_name }}"
+          ipv4: "{{ fw_rule_dest_host_ipv4 }}"
+    services: "{{ fw_rule_services }}"
+    rule:
+      action: "{{ fw_rule_action }}"
+      logging_init: "{{ fw_rule_logging_init }}"
+      logging_close: "{{ fw_rule_logging_close }}"

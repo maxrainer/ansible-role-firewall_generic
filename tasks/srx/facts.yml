@@ -1,0 +1,10 @@
+---
+
+- name: gather facts from srx
+  junipernetworks.junos.junos_facts:
+    gather_subset: all
+    gather_network_resources:
+  register: _srx_facts
+
+- debug: 
+    var: _srx_facts

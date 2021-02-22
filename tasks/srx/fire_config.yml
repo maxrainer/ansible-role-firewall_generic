@@ -1,0 +1,11 @@
+---
+
+- name: change bulk config on JUNOS SRX 
+  junipernetworks.junos.junos_config:
+    lines: "{{ fw_conf_lines }}"
+#    check_commit: yes
+  register: _config
+
+- name: clear variable fw_config_lines
+  set_fact:
+    fw_conf_lines: []

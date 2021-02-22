@@ -1,0 +1,19 @@
+---
+
+- name: JUNOS test config
+  hosts: srx
+  gather_facts: false
+  tasks:
+
+  - name: test config block 1
+    junipernetworks.junos.junos_config:
+      src: zones.j2
+      update: merge
+      src_format: text
+
+  - name: test config block 2
+    junipernetworks.junos.junos_config:
+      src: policies.j2
+      update: merge
+      src_format: text
+

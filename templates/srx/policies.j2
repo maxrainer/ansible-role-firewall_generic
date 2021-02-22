@@ -1,0 +1,26 @@
+security {
+    policies {
+        {% for rule in fw_rules %}
+        from-zone {{ rule.src.zone }} to-zone {{ rule.dest.zone }} {
+            policy {{ rule.name }} {
+                match {
+                    source-address [ {% for address in rule.src.addresses %}{{ address.name }} {% endfor %}];
+                    destination-address [ {% for address in rule.dest.addresses %}{{ address.name }} {% endfor %}];
+                    application [ {% for service in rule.services %}{{ service.name }} {% endfor %}];
+                }
+                then {
+                    {{ rule.rule.action }};
+                    log {  
+                        {% if rule.rule.logging_init is defined and rule.rule.logging_init %}
+                        session-init;
+                        {% endif %}
+                        {% if rule.rule.logging_close is defined and rule.rule.logging_close %}
+                        session-close;
+                        {% endif %}
+                    }
+                }
+            }
+        }
+        {% endfor %}
+    }
+}

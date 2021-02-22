@@ -1,0 +1,4 @@
+---
+
+- include_tasks: srx/rule_main.yml
+  tags: [rule]

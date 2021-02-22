@@ -1,0 +1,8 @@
+---
+
+- name: test role firewall juniper SRX
+  hosts: srx
+  gather_facts: false
+  roles:
+    - ../../firewall-generic
+  

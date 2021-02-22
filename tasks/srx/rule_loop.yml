@@ -1,0 +1,71 @@
+---
+# pre build all address book entries 
+# and policies 
+
+- name: prepare address book for sources
+  include_tasks: address_book.yml
+  loop: "{{ _rule.src.addresses }}"
+  loop_control:
+   label: "{{ _address.name }}"
+   loop_var: _address
+  vars:
+    _zone: "{{ _rule.src.zone }}"
+
+- name: prepare address book for destinations
+  include_tasks: address_book.yml
+  loop: "{{ _rule.dest.addresses }}"
+  loop_control:
+   label: "{{ _address.name }}"
+   loop_var: _address
+  vars:
+    _zone: "{{ _rule.dest.zone }}"
+
+- name: prepare policy for sources
+  include_tasks: policy_address.yml
+  loop: "{{ _rule.src.addresses }}"
+  loop_control:
+   label: "{{ _address.name }}"
+   loop_var: _address
+  vars:
+    _src_zone: "{{ _rule.src.zone }}"
+    _dest_zone: "{{ _rule.dest.zone }}"
+    _direction: "source"
+
+- name: prepare policy for destination
+  include_tasks: policy_address.yml
+  loop: "{{ _rule.dest.addresses }}"
+  loop_control:
+   label: "{{ _address.name }}"
+   loop_var: _address
+  vars:
+    _src_zone: "{{ _rule.src.zone }}"
+    _dest_zone: "{{ _rule.dest.zone }}"
+    _direction: "destination"
+
+- name: prepare policy for services
+  include_tasks: policy_service.yml
+  loop: "{{ _rule.services }}"
+  loop_control:
+   label: "{{ _service }}"
+   loop_var: _service
+  vars:
+    _src_zone: "{{ _rule.src.zone }}"
+    _dest_zone: "{{ _rule.dest.zone }}"
+
+# set security policies from-zone {{ security_policy.from }} to-zone {{ security_policy.to }} policy {{ security_policy.name }} then {{ action }}
+- name: set policy rule action
+  set_fact:
+    fw_conf_lines: "{{ fw_conf_lines + ['set security policies from-zone ' + _rule.src.zone + ' to-zone ' + _rule.dest.zone + ' policy ' + _rule.name + ' then ' + _rule.rule.action] }}"
+
+- name: set log session-init 
+  set_fact:
+    fw_conf_lines: "{{ fw_conf_lines + ['set security policies from-zone ' + _rule.src.zone + ' to-zone ' + _rule.dest.zone + ' policy ' + _rule.name + ' then log session-init'] }}"
+  when: _rule.rule.logging_init is defined and _rule.rule.logging_init
+- name: set log session-init 
+  set_fact:
+    fw_conf_lines: "{{ fw_conf_lines + ['set security policies from-zone ' + _rule.src.zone + ' to-zone ' + _rule.dest.zone + ' policy ' + _rule.name + ' then log session-close'] }}"
+  when: _rule.rule.logging_close is defined and _rule.rule.logging_close
+
+- name: policy config statements
+  debug:
+    var: fw_conf_lines

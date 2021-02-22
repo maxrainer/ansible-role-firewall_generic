@@ -1,0 +1,20 @@
+security {
+    zones{
+        {% for rule in fw_rules %}
+        security-zone {{ rule.src.zone}} {
+            address-book {
+                {% for address in rule.src.addresses %}
+                address {{ address.name }} {{ address.ipv4 }}/32;
+                {% endfor %}
+            }
+        }
+        security-zone {{ rule.dest.zone}} {
+            address-book {
+                {% for address in rule.dest.addresses %}
+                address {{ address.name }} {{ address.ipv4 }}/32;
+                {% endfor %}
+            }
+        }
+        {% endfor %}
+    }
+}

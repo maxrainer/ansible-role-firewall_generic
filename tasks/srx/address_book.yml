@@ -1,0 +1,5 @@
+---
+
+- name: add address book entry line
+  set_fact: 
+    fw_conf_lines: "{{ fw_conf_lines + ['set security zones security-zone ' + _zone + ' address-book address ' + _address.name + ' ' + _address.ipv4] }}"

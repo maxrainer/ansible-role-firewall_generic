@@ -1,0 +1,9 @@
+---
+# set security policies from-zone {{ security_policy.from }} to-zone {{ security_policy.to }} policy {{ security_policy.name }} match source-address {{ source_address.name }}
+# set security policies from-zone {{ security_policy.from }} to-zone {{ security_policy.to }} policy {{ security_policy.name }} match destination-address {{ destination_address.name }}
+# set security policies from-zone {{ security_policy.from }} to-zone {{ security_policy.to }} policy {{ security_policy.name }} match application {{ application }}
+# set security policies from-zone {{ security_policy.from }} to-zone {{ security_policy.to }} policy {{ security_policy.name }} then {{ action }}
+
+- name: set variable for policy addresses
+  set_fact: 
+    fw_conf_lines: "{{ fw_conf_lines + ['set security policies from-zone ' + _src_zone + ' to-zone ' + _dest_zone + ' policy ' + _rule.name + ' match ' + _direction + '-address ' + _address.name] }}"
