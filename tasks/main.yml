@@ -1,4 +1,5 @@
 ---
 
-- include_tasks: srx/rule_main.yml
-  tags: [rule]
+- include_tasks: srx/main.yml
+  when: inventory_hostname in groups['srx']
+  tags: [always]

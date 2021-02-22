@@ -1,0 +1,11 @@
+---
+# srx main.yml
+
+- include_tasks: 
+    file: facts.yml
+    apply:
+      tags: facts
+  tags: [facts]
+
+- include_tasks: rule_main.yml
+  tags: [rule]
