@@ -18,4 +18,4 @@ galaxy_info:
       versions:
         - all
 
-  galaxy_tags: [srx, , junos, demo, lab, networking]
+  galaxy_tags: [srx, junos, demo, lab, networking]
