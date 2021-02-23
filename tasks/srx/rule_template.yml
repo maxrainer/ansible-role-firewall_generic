@@ -9,7 +9,7 @@
   
 - name: configure policies with Jinja templates
   junipernetworks.junos.junos_config:
-      src: templates/srx/zones.j2
+      src: templates/srx/policies.j2
       update: merge
       src_format: text
   
