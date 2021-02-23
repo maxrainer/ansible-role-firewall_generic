@@ -1,9 +1,15 @@
 ---
 
+- name: backup config before deployment
+  junipernetworks.junos.junos_config:
+    backup: yes
+    backup_options: 
+      dir_path: "{{ fw_backup_dir }}"
+  when: fw_backup_config | bool
+
 - name: change bulk config on JUNOS SRX 
   junipernetworks.junos.junos_config:
     lines: "{{ fw_conf_lines }}"
-#    check_commit: yes
   register: _config
 
 - name: clear variable fw_config_lines

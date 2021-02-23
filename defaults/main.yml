@@ -4,6 +4,9 @@ fw_survey: false
 # Jinja template methode
 fw_methode_template: false
 
+fw_backup_config: false
+fw_backup_dir: /tmp
+
 fw_conf_lines: []
 
 fw_rules:

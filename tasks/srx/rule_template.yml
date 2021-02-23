@@ -1,6 +1,13 @@
 ---
 # configure policies and address book with Jinja Templates
 
+- name: backup config before deployment
+  junipernetworks.junos.junos_config:
+    backup: yes
+    backup_options: 
+      dir_path: "{{ fw_backup_dir }}"
+  when: fw_backup_config | bool
+
 - name: configure address book zone entries with Jinja templates
   junipernetworks.junos.junos_config:
       src: templates/srx/zones.j2
