@@ -1,9 +1,9 @@
 ---
 
-- name: set variable for rules
-  include_vars: vars/srx_acls.yml
-  when: fw_survey
-  tags: [rule]
+# - name: set variable for rules
+#   include_vars: vars/srx_acls.yml
+#   when: fw_survey
+#   tags: [rule]
 
 - name: start loop for rules
   include_tasks:

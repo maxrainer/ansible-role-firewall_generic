@@ -1,0 +1,7 @@
+---
+
+panos_services:
+  dns-tcp: service-dns-tcp
+  dns-udp: service-dns-udp
+  http: service-http
+  https: service-https

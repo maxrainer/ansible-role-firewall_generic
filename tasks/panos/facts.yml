@@ -1,0 +1,11 @@
+---
+
+- name: gather facts from PanOS
+  paloaltonetworks.panos.panos_facts:
+    provider: "{{ panos_provider }}"
+    gather_subset: 
+      - "!config"
+  register: _panos_facts
+
+- debug:
+    var: _panos_facts

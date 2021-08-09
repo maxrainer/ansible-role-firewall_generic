@@ -1,0 +1,45 @@
+---
+# inner rule
+
+- set_fact:
+    _src_ips: []
+    _dest_ips: []
+    _services: []
+    _action: "{{ 'allow' if _rule.rule.action == 'permit' else 'deny' }}"
+
+- name: generate list of source addresses
+  set_fact: 
+    _src_ips: "{{ _src_ips + [item.ipv4] }}"
+  loop: "{{ _rule.src.addresses }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: generate list of destination addresses
+  set_fact: 
+    _dest_ips: "{{ _dest_ips + [item.ipv4] }}"
+  loop: "{{ _rule.dest.addresses }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: generate list of services
+  set_fact: 
+    _services: "{{ _services + [panos_services[item]] }}"
+  loop: "{{ _rule.services }}"
+
+- debug: 
+    var:  _services
+
+- name: "add rule {{ _rule.name }} to PanOS"
+  paloaltonetworks.panos.panos_security_rule:
+    provider: "{{ panos_provider }}"
+    rule_name: "{{ _rule.name }}"
+    description: "{{ _rule.description | default(omit) }}"
+    source_zone: "{{ _rule.src.zone }}"
+    destination_zone: "{{ _rule.dest.zone }}"
+    source_ip: "{{ _src_ips }}"
+    destination_ip: "{{ _dest_ips }}"
+    category: ['any']
+    application: ['any']
+    service: "{{ _services }}"
+    action: "{{ _action }}"
+    commit: "False"

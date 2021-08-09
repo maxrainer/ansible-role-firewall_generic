@@ -1,0 +1,9 @@
+[srx]
+
+[panos]
+vpanos1 
+
+[panos:vars]
+ip_address=172.16.1.211
+username=admin
+password=admin

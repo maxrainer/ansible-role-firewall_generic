@@ -1,5 +1,14 @@
 ---
 
+- name: set variable for rules 
+  include_vars: vars/survey_acls.yml
+  when: fw_survey
+  tags: [rule]
+
 - include_tasks: srx/main.yml
   when: inventory_hostname in groups['srx']
+  tags: [always]
+
+- include_tasks: panos/main.yml
+  when: inventory_hostname in groups['panos']
   tags: [always]

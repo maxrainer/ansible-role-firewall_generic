@@ -2,6 +2,7 @@ dependencies: []
 
 collections: 
   - junipernetworks.junos
+  - paloaltonetworks.panos
 
 galaxy_info:
   role_name: firewall_generic

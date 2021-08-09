@@ -1,0 +1,15 @@
+---
+
+- name: PanOS playbook
+  hosts: panos
+  connection: local
+  vars:
+      panos_provider:
+        ip_address: '{{ ip_address }}'
+        username: '{{ username | default(omit) }}'
+        password: '{{ password | default(omit) }}'
+        api_key: '{{ api_key | default(omit) }}'
+  gather_facts: false
+
+  roles:
+    - ../../firewall-generic
