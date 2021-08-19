@@ -6,7 +6,7 @@ security {
                 match {
                     source-address [ {% for address in rule.src.addresses %}{{ address.name }} {% endfor %}];
                     destination-address [ {% for address in rule.dest.addresses %}{{ address.name }} {% endfor %}];
-                    application [ {% for service in rule.services %}{{ service }} {% endfor %}];
+                    application [ {% for service in rule.services %}{{ srx_services[service] }} {% endfor %}];
                 }
                 then {
                     {{ rule.rule.action }};

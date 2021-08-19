@@ -1,5 +1,7 @@
 ---
 
 srx_services:
+  dns-udp: junos-dns-udp
+  dns-tcp: junos-dns-tcp
   http: junos-http
   https: junos-https
