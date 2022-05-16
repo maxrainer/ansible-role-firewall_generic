@@ -1,0 +1,8 @@
+---
+
+- name: create IP Pool entrys
+  fortinet.fortios.fortios_firewall.ippool:
+    state: present
+    firewall_ippool:
+      name: "{{ _src_address.name }}"
+

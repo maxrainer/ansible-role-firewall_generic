@@ -1,0 +1,9 @@
+---
+
+- name: gather facts from FortiGate
+  fortinet.fortios.fortios_configuration_fact: 
+    vdom: "{{ fw_fg_vdom | default | default('') }}"
+  register: _fg_facts
+
+- debug:
+    var: _fg_facts

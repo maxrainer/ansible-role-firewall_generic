@@ -1,0 +1,17 @@
+---
+
+- name: include 
+  include_vars: vars/fg_services.yml
+  tags: [rule]
+
+- name: start loop for rules
+  include_tasks:
+    file: rule_loop.yml
+    apply:
+      tags: rule
+  loop: "{{ fw_rules }}"
+  loop_control:
+    label: "{{ _rule.name }}"
+    loop_var: _rule
+  when: fw_rules | length > 0 
+  tags: [rule]

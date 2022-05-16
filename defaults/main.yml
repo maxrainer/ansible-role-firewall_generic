@@ -51,3 +51,6 @@ fw_rule_services: ['junos-dns-tcp', 'junos-dns-udp']
 fw_rule_action: permit
 fw_rule_logging_init: true
 fw_rule_logging_close: false
+
+# fortigate
+fw_fg_vdom: "root"

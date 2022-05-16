@@ -12,3 +12,7 @@
 - include_tasks: panos/main.yml
   when: inventory_hostname in groups['panos']
   tags: [always]
+
+- include_tasks: fortigate/main.yml
+  when: inventory_hostname in groups['fg']
+  tags: [always]
