@@ -61,13 +61,37 @@
     var:  _services
     verbosity: 2
 
-- name: "add rule {{ _rule.name }} to Fortigate"
+- name: gather policyids from Fortigate
+  fortinet.fortios.fortios_configuration_fact: 
+    vdom: "{{ fw_fg_vdom | default('') }}"
+    access_token: "{{ fw_access_token | default(omit) }}"
+    selectors:
+      - selector: firewall_policy
+  register: _fg_facts
+
+- name: find duplicate policy name and set ID
+  set_fact: 
+    _next_policyid: "{{ item.policyid }}"
+  when: item.name == _rule.name
+  loop: "{{ _fg_facts.meta[0].results }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: find last ID if policy not found on device
+  block: 
+  - set_fact:
+      _last: "{{ (_fg_facts.meta[0].results | length | int) -1}}"
+  - set_fact:
+      _next_policyid: "{{ _fg_facts.meta[0].results[_last | int].policyid +1}}"
+  when: _next_policyid is not defined or _next_policyid == ""
+
+- name: "add rule {{ _rule.name }} with policyID: {{ _next_policyid }}"
   fortinet.fortios.fortios_firewall_policy:
     vdom: "{{ fw_fg_vdom | default('') }}"
     access_token: "{{ fw_access_token | default(omit) }}"
     state: present
     firewall_policy: 
-      policyid: 4543
+      policyid: "{{ _next_policyid }}"
       name: "{{ _rule.name }}" 
       srcaddr: "{{ _src_names }}"
       srcintf:
