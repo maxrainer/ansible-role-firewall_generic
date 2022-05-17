@@ -3,6 +3,7 @@ dependencies: []
 collections: 
   - junipernetworks.junos
   - paloaltonetworks.panos
+  - fortinet.fortios
 
 galaxy_info:
   role_name: firewall_generic
@@ -19,4 +20,4 @@ galaxy_info:
       versions:
         - all
 
-  galaxy_tags: [srx, junos, demo, lab, networking]
+  galaxy_tags: [srx, junos, fortigate, fortios, demo, lab, networking]

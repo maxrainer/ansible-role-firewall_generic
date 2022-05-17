@@ -3,6 +3,7 @@
 - name: gather facts from FortiGate
   fortinet.fortios.fortios_configuration_fact: 
     vdom: "{{ fw_fg_vdom | default('') }}"
+    access_token: "{{ fw_access_token | default(omit) }}"
     selectors:
       - selector: system_interface
   register: _fg_facts
