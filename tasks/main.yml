@@ -5,6 +5,11 @@
   when: fw_survey
   tags: [rule]
 
+- name: yaml to json
+  debug:
+    msg: "{{ fw_rules | to_nice_json }}"
+  tags: [debug]
+
 - include_tasks: srx/main.yml
   when: inventory_hostname in groups['srx']
   tags: [always]
@@ -16,3 +21,4 @@
 - include_tasks: fortigate/main.yml
   when: inventory_hostname in groups['fg']
   tags: [always]
+

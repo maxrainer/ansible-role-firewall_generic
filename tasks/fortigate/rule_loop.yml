@@ -7,8 +7,8 @@
     _dest_names: []
     _services: []
     _action: "{{ 'accept' if _rule.rule.action == 'permit' else 'deny' }}"
-
-- set_fact:
+    _utm_status: "{{ 'enable' if _rule.rule.ips_sensor != '' else 'disable' }}"
+    _next_policyid: 0
     _intf: "{{ _rule.src.zone }}"
 
 - name: loop src IP address list
@@ -77,14 +77,6 @@
   loop_control:
     label: "{{ item.name }}"
 
-- name: find last ID if policy not found on device
-  block: 
-  - set_fact:
-      _last: "{{ (_fg_facts.meta[0].results | length | int) -1}}"
-  - set_fact:
-      _next_policyid: "{{ _fg_facts.meta[0].results[_last | int].policyid +1}}"
-  when: _next_policyid is not defined or _next_policyid == ""
-
 - name: "add rule {{ _rule.name }} with policyID: {{ _next_policyid }}"
   fortinet.fortios.fortios_firewall_policy:
     vdom: "{{ fw_fg_vdom | default('') }}"
@@ -101,4 +93,6 @@
         - name: "{{ _rule.dest.zone }}"
       service: "{{ _services }}"
       action: "{{ _action }}" 
+      ips_sensor: "{{ _rule.rule.ips_sensor | default(omit) }}"
+      utm_status: "{{ _utm_status | default(omit) }}"
       schedule: always

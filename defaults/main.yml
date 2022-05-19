@@ -9,20 +9,21 @@ fw_survey: false
 # Jinja template methode
 fw_methode_template: false
 
+
 fw_backup_config: false
 fw_backup_dir: /tmp
 
 fw_conf_lines: []
 
 fw_rules:
-  - name: rule_A
+  - name: rule_C
     src:
-      zone: "internal"
+      zone: "port2"
       addresses:
         - name: "inside_host_D"
           ipv4: "10.10.2.3"
     dest:
-      zone: "public"
+      zone: "port3"
       addresses:
         - name: "pub_host_A"
           type: host
@@ -37,6 +38,7 @@ fw_rules:
       action: "permit"
       logging_init: false
       logging_close: true
+      ips_sensor: "default"
 
 # if fw_survey: true
 # this variables are valid for survey
