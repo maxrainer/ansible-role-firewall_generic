@@ -19,5 +19,32 @@ depends on collections:
 * junipernetworks.junos
 * paloaltonetworks.panos
 * fortinet.fortios
+## **data schema for rules**
+/*
+fw_rules:
+  - name: rule_C
+    src:
+      zone: "port2"
+      addresses:
+        - name: "inside_host_D"
+          ipv4: "10.10.2.3"
+    dest:
+      zone: "port3"
+      addresses:
+        - name: "pub_host_A"
+          type: host
+          ipv4: "7.7.7.1"
+        - name: "pub_host_B"
+          type: host
+          ipv4: "7.7.7.2"
+    services:
+      - http
+      - https
+    rule:
+      action: "permit"
+      logging_init: false
+      logging_close: true
+      ips_sensor: "default"
+*/
 
 
