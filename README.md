@@ -2,6 +2,7 @@
 ## **Overview**
 Generic Ansible role for different Firewall platforms.
 Goal is to provide a generic useable way to configure Firewall rules on different platforms with the same input data schema.
+Easy to be extended for other FW platforms. 
 More features (p.e. NAT) to come. 
 
 ## **Plaforms supported**
