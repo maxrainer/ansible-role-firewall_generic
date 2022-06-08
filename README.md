@@ -1,6 +1,9 @@
 # **Ansible Role for Firewall Demos**
 ## **Overview**
-Ansible role for different Firewall platforms.
+Generic Ansible role for different Firewall platforms.
+Goal is to provide a generic useable way to configure Firewall rules on different platforms with the same input data schema.
+More features (p.e. NAT) to come. 
+
 ## **Plaforms supported**
 * Juniper SRX
 * PaloAlto PanOS
