@@ -1,0 +1,5 @@
+*artifacts*
+tests/*
+files/*
+ansible-navigator*
+rules*

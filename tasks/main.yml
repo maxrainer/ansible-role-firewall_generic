@@ -22,3 +22,7 @@
   when: inventory_hostname in groups['fg']
   tags: [always]
 
+- include_tasks: asa/main.yml
+  when: inventory_hostname in groups['asa']
+  tags: [always]
+

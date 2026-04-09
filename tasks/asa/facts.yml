@@ -1,0 +1,10 @@
+---
+
+- name: gather facts from Cisco ASA
+  cisco.asa.asa_facts:
+    gather_subset: 
+      - "!config"
+  register: _asa_facts
+
+- debug:
+    var: _asa_facts
