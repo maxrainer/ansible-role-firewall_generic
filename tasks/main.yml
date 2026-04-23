@@ -1,9 +1,15 @@
 ---
 
 - name: set variable for rules 
-  include_vars: vars/survey_acls.yml
+  ansible.builtin.include_vars: 
+    file: vars/survey_acls.yml
   when: fw_survey
   tags: [rule]
+
+- name: read variable for rules from Excel file
+  set_fact:
+    fw_rules: "{{ lookup('rules', 'files/rules2.xlsx') }}"
+  tags: [excel]
 
 - name: yaml to json
   debug:

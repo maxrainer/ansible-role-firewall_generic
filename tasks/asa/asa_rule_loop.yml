@@ -1,0 +1,90 @@
+---
+
+- set_fact:
+    _object_groups: []
+    _services: []
+
+- name: create services dictionary 
+  set_fact:
+    _services: "{{ _services + [{ 'eq': item }] }}"
+  loop: "{{ _rule.services }}"
+
+- debug: 
+    var: _services
+    verbosity: 2
+
+- name: "Services object {{ _rule.name }}_services {{ fw_og_state }}"
+  cisco.asa.asa_ogs:
+    config:
+      - object_type: service
+        object_groups:
+          - name: "{{ _rule.name }}_services tcp"
+            port_object: "{{ _services }}"
+    state: "{{ fw_og_state}}"
+
+- name: debug inside loop
+  debug:
+    var: _rule
+    verbosity: 2
+
+- name: "Loop dest address objects for {{ _rule.name }}"
+  include_tasks:
+    file: asa_object_loop.yml
+    apply:
+      tags: rule
+  loop: "{{ _rule.dest.adresses }}"
+  loop_control:
+    label: "{{ _address.name }}"
+    loop_var: _address
+  when: _rule.dest.adresses | length > 0 
+  tags: [rule] 
+
+- name: "dest Group Object for Rule with all members {{ fw_og_state }}"
+  cisco.asa.asa_ogs:
+    config:
+      - object_type: network
+        object_groups:
+          - group_object: "{{ _object_groups }}"
+            name: "{{ _rule.name }}_dest_objects"
+    state: "{{ fw_og_state }}"
+
+- set_fact:
+    _object_groups: []
+
+- name: "Loop src address objects for {{ _rule.name }}"
+  include_tasks:
+    file: asa_object_loop.yml
+    apply:
+      tags: rule
+  loop: "{{ _rule.src.adresses }}"
+  loop_control:
+    label: "{{ _address.name }}"
+    loop_var: _address
+  when: _rule.src.adresses | length > 0 
+  tags: [rule] 
+
+- name: "Src Group Object for Rule with all members {{ fw_og_state }}"
+  cisco.asa.asa_ogs:
+    config:
+      - object_type: network
+        object_groups:
+          - group_object: "{{ _object_groups }}"
+            name: "{{ _rule.name }}_src_objects"
+    state: "{{ fw_og_state }}"
+
+- name: ACL configuration for rule  
+  cisco.asa.asa_acls:
+    config:
+      acls:
+        - name: "{{ _rule.src.zone }}"
+          acl_type: extended
+          aces:
+            - grant: "{{ _rule.rules.action }}"
+              protocol_options:
+                tcp: true
+              source:
+                object_group: "{{ _rule.name }}_src_objects"
+              destination:
+                object_group: "{{ _rule.name }}_dest_objects"
+                service_object_group: "{{ _rule.name }}_services"
+              log: default

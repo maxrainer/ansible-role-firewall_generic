@@ -9,6 +9,7 @@ More features (p.e. NAT) to come.
 * Juniper SRX
 * PaloAlto PanOS
 * Fortigate FortiOS
+* Cisco ASA
 ## **Topics covered**
 * policy and rule configuration
 * address book configuration
@@ -23,6 +24,7 @@ depends on collections:
 * junipernetworks.junos
 * paloaltonetworks.panos
 * fortinet.fortios
+* cisco.asa
 ## **data schema for rules**
 ```
 fw_rules:

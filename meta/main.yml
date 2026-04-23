@@ -4,6 +4,7 @@ collections:
   - junipernetworks.junos
   - paloaltonetworks.panos
   - fortinet.fortios
+  - cisco.asa
 
 galaxy_info:
   role_name: firewall_generic
@@ -20,4 +21,4 @@ galaxy_info:
       versions:
         - all
 
-  galaxy_tags: [srx, junos, fortigate, fortios, demo, lab, networking]
+  galaxy_tags: [srx, junos, fortigate, asa, cisco, fortios, demo, lab, networking]

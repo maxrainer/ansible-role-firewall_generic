@@ -1,0 +1,15 @@
+---
+
+- name: "ASA Object {{ _address.name }} {{ fw_og_state }}"
+  cisco.asa.asa_ogs:
+    config:
+      - object_type: network
+        object_groups:
+          - name: ”{{ _address.name }}
+            network_object:
+              host:
+                - "{{ _address.ipv4 }}"
+    state: "{{ fw_og_state }}"
+
+- set_fact:
+    _object_groups: "{{ _object_groups + [_address.name] }}"

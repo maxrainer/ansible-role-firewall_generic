@@ -1,0 +1,30 @@
+---
+
+- name: ASA object group playbook
+  hosts: asa
+  gather_facts: false
+  become: true
+  vars: 
+    fw_og_state: "replaced"
+
+  tasks:
+
+  # - name: include 
+  #   include_vars: vars/asa_services.yml
+
+  - name: Read Excel file rules.xlsx
+    set_fact:
+      fw_rules: "{{ lookup('rules', 'files/rules2.xlsx') }}"
+    tags: [rule]
+
+  - name: start loop for rules
+    include_tasks:
+      file: asa_rule_loop.yml
+      apply:
+        tags: rule
+    loop: "{{ fw_rules }}"
+    loop_control:
+      label: "{{ _rule.name }}"
+      loop_var: _rule
+    when: fw_rules | length > 0 
+    tags: [rule] 

@@ -2,4 +2,4 @@
 tests/*
 files/*
 ansible-navigator*
-rules*
+__pychache__*

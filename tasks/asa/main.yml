@@ -8,5 +8,5 @@
       tags: facts
   tags: [facts]
 
-- include_tasks: rule_main.yml
+- include_tasks: asarulemain.yml
   tags: [rule]
