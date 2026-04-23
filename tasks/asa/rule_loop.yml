@@ -1,5 +1,0 @@
----
-
-- name: debug inside loop
-  debug:
-    var: _rule

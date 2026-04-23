@@ -2,4 +2,4 @@
 tests/*
 files/*
 ansible-navigator*
-__pychache__*
+lookup_plugins/__pycache__/*

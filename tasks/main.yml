@@ -8,7 +8,7 @@
 
 - name: read variable for rules from Excel file
   set_fact:
-    fw_rules: "{{ lookup('rules', 'files/rules2.xlsx') }}"
+    fw_rules: "{{ lookup('rules', 'files/rules.xlsx') }}"
   tags: [excel]
 
 - name: yaml to json
