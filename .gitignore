@@ -1,5 +1,4 @@
 *artifacts*
 tests/*
-files/*
 ansible-navigator*
 lookup_plugins/__pycache__/*
