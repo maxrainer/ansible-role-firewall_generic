@@ -1,5 +1,10 @@
 ---
 
+- name: debug access token
+  debug:
+    var: fw_access_token
+    verbosity: 2
+    
 - name: gather facts from FortiGate
   fortinet.fortios.fortios_configuration_fact: 
     vdom: "{{ fw_fg_vdom | default('') }}"
