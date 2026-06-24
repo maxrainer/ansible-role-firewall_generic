@@ -12,8 +12,6 @@
     selectors:
       - selector: system_interface
   register: _fg_facts
-  environment:
-    no_proxy: "{{ ansible_host }}"
 
 - debug:
     var: _fg_facts
